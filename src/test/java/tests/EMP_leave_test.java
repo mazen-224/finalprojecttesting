@@ -15,13 +15,11 @@ public class EMP_leave_test {
 
     @BeforeClass
     public void setup() {
-        // Set up ChromeDriver (make sure chromedriver is in your system path or provide the path)
         driver = new ChromeDriver();
         driver.manage().window();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://opensource-demo.orangehrmlive.com/");
 
-        // Perform employee login
         login_page loginPage = new login_page(driver);
         loginPage.login("eldyaste", "mazen12345");
 

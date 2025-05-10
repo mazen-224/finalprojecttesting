@@ -36,12 +36,10 @@ public class EMP_leave_page {
         wait.until(ExpectedConditions.elementToBeClickable(leaveTypeDropdown)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='" + leaveType + "']"))).click();
 
-        // Wait for both date inputs to be visible
         List<WebElement> dateFields = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dateInputs));
         WebElement fromDateField = dateFields.get(0);
         WebElement toDateField = dateFields.get(1);
 
-        // Clear and type dates using Actions to avoid focus issues
         Actions actions = new Actions(driver);
 
         fromDateField.click();

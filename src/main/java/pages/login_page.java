@@ -25,7 +25,6 @@ public class login_page {
         this.driver = driver;
         PageFactory.initElements(driver, this);
 
-        // Optional: wait for page to load before interacting
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(usernameInput));
     }

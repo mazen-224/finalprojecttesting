@@ -31,12 +31,10 @@ public class admin_test {
     public void testDisableUser() {
         adminPage.disableUser("Mazen");
 
-        // Try logging in as disabled user
         driver.get("https://opensource-demo.orangehrmlive.com/");
         login_page loginPage = new login_page(driver);
         loginPage.login("Mazen", "mazen12345");
 
-        // Expect login to fail (still on login page)
         Assert.assertTrue(driver.getCurrentUrl().contains("auth/login"), "User should not be able to login");
     }
 
@@ -45,12 +43,10 @@ public class admin_test {
         // Admin changes user password
         adminPage.changeUserPasswordFlow("FMLName", "FML12345");
 
-        // Logout and login as the user with new password
         driver.get("https://opensource-demo.orangehrmlive.com/");
         login_page loginPage = new login_page(driver);
         loginPage.login("FMLName", "FML12345");
 
-        // Validate successful login (should be redirected away from login)
         Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"), "User should be logged in with new password");
     }
 

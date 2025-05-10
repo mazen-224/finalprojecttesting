@@ -16,7 +16,7 @@ public class admin_Page {
         PageFactory.initElements(driver, this);
     }
 
-    // --- Locators (unchanged as requested) ---
+
     private final By adminMenu = By.xpath("//span[text()='Admin']/parent::a");
     private final By usernameField = By.cssSelector("input.oxd-input[data-v-1f99f73c]:not([placeholder])");
     private final By searchButton = By.xpath("//button[normalize-space()='Search']");
@@ -25,12 +25,12 @@ public class admin_Page {
     private final By disabledOption = By.xpath("//span[text()='Disabled']");
     private final By saveButton = By.xpath("//button[normalize-space()='Save']");
 
-    // --- Password Change Section ---
+
     private final By changePasswordYesRadio = By.cssSelector("i.oxd-icon.bi-check[data-v-bddebfba]");
     private final By passwordInput = By.xpath("//label[text()='Password']/following::input[1]");
     private final By confirmPasswordInput = By.xpath("//label[text()='Confirm Password']/following::input[1]");
 
-    // --- Actions ---
+
 
     public void openAdminMenu() {
         wait.until(ExpectedConditions.elementToBeClickable(adminMenu)).click();
@@ -66,7 +66,6 @@ public class admin_Page {
         wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
     }
 
-    // Full flows
 
     public void disableUser(String username) {
         openAdminMenu();
