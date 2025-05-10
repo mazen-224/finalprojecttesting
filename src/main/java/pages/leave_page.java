@@ -1,11 +1,10 @@
 package pages;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 
 import java.time.Duration;
 
@@ -16,93 +15,88 @@ public class leave_page {
 
     public leave_page(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(90));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         this.actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
 
-    // Locators
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[1]/aside/nav/div[2]/ul/li[3]/a")
-    private WebElement leaveMenu;
+    private final By leaveMenu = By.xpath("//a[.//span[text()='Leave']]");
+    private final By entitlementsMenu = By.xpath("//span[contains(text(),'Entitle')]");
+    private final By addEntitlementsOption = By.xpath("//a[text()='Add Entitlements']");
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[1]/header/div[2]/nav/ul/li[3]/span")
-    private WebElement entitlementsMenu;
+    private final By employeeNameInput = By.cssSelector("input[placeholder*='Type']");
+    private final By leaveTypeDropdown = By.cssSelector(".oxd-select-wrapper:first-of-type .oxd-select-text");
+    private final By leaveTypeOption = By.xpath("//span[contains(text(),'US - Vacation')]");
+    private final By entitlementInput = By.xpath("//label[text()='Entitlement']/following::input[1]");
+    private final By saveButton = By.xpath("//button[normalize-space()='Save']");
+    private final By confirmButton = By.xpath("//button[normalize-space()='Confirm']");
+    private final By Toast = By.cssSelector(".oxd-toast-container");
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[1]/header/div[2]/nav/ul/li[3]/ul/li[1]/a")
-    private WebElement addEntitlementsOption;
-
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div/div/div[2]/div/div/input")
-    private WebElement employeeNameInput;
-
-    @FindBy(xpath = "//div[@role='listbox']//div[contains(@class,'oxd-autocomplete-option')][1]")
-    private WebElement employeeNameSuggestion;
-
-    @FindBy(xpath = "(//div[@class='oxd-select-wrapper'])[1]")
-    private WebElement leaveTypeDropdown;
-
-    @FindBy(xpath = "//div[@role='listbox']//span[contains(.,'US - Vacation')]")
-    private WebElement leaveTypeOption;
-
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/div/div[3]/div/div[2]/input")
-    private WebElement entitlementInput;
-
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[4]/button[2]")
-    private WebElement saveButton;
-
-    @FindBy(css = "//*[@id=\"app\"]/div[3]/div/div/div/div[3]/button[2]")
-    private WebElement successToast;
-
-
+    private final By multipleEmployeesRadio = By.xpath("(//span[contains(@class, 'oxd-radio-input--active')])[2]");
+    private final By locationDropdown = By.xpath("(//form//div[contains(@class,'oxd-select-text')])[1]");
+    private final By subUnitDropdown = By.xpath("//label[text()='Sub Unit']/following::div[contains(@class,'oxd-select-text-input')][1]");
+    private final By Leave_type_dropdown = By.xpath("//label[text()='Leave Type']/following::div[contains(@class,'oxd-select-text-input')][1]");
     public void navigateToLeavePage() {
-        try {
-            // Click on the Leave main menu
-            wait.until(ExpectedConditions.elementToBeClickable(leaveMenu)).click();
-
-            // Click on the Entitlements dropdown (not hover)
-            wait.until(ExpectedConditions.elementToBeClickable(entitlementsMenu)).click();
-
-            // Wait for the "Add Entitlements" option to appear, then click it
-            wait.until(ExpectedConditions.visibilityOf(addEntitlementsOption));
-            wait.until(ExpectedConditions.elementToBeClickable(addEntitlementsOption)).click();
-
-            // Wait for the form to load
-            wait.until(ExpectedConditions.visibilityOf(employeeNameInput));
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to navigate to Add Entitlements: " + e.getMessage());
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(leaveMenu)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(entitlementsMenu)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(addEntitlementsOption)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(employeeNameInput));
     }
-
-
 
     public void addLeaveEntitlement(String employeeName, String leaveType, String entitlementAmount) {
-        // Type the employee name
-        employeeNameInput.sendKeys(employeeName);
+        WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(employeeNameInput));
+        nameInput.sendKeys(employeeName);
 
-        // Now press down and enter to select the suggestion
-        wait.until(ExpectedConditions.elementToBeClickable(employeeNameInput)).click();
-        employeeNameInput.sendKeys(Keys.ARROW_DOWN);
-        employeeNameInput.sendKeys(Keys.ENTER);
+        actions.pause(Duration.ofSeconds(5))
+                .sendKeys(Keys.ARROW_DOWN)
+                .sendKeys(Keys.ENTER)
+                .perform();
 
-        // Select leave type
-        leaveTypeDropdown.click();
+        wait.until(ExpectedConditions.elementToBeClickable(leaveTypeDropdown)).click();
         wait.until(ExpectedConditions.elementToBeClickable(leaveTypeOption)).click();
 
-        // Enter entitlement amount
-        entitlementInput.click();
-        entitlementInput.clear();
-        entitlementInput.sendKeys(entitlementAmount);
+        WebElement entitlementField = wait.until(ExpectedConditions.visibilityOfElementLocated(entitlementInput));
+        entitlementField.clear();
+        entitlementField.sendKeys(entitlementAmount);
 
-        // Click Save
-        saveButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(confirmButton)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(Toast));
     }
 
+    public void addLeaveEntitlementForMultipleEmployees(String location, String subUnit, String leaveType, String entitlementAmount) {
+        wait.until(ExpectedConditions.elementToBeClickable(multipleEmployeesRadio)).click();
 
+        wait.until(ExpectedConditions.elementToBeClickable(locationDropdown)).click();
+        actions.pause(Duration.ofSeconds(1))
+                .sendKeys(Keys.ARROW_DOWN)
+                .sendKeys(Keys.ENTER)
+                .perform();
 
+        wait.until(ExpectedConditions.elementToBeClickable(subUnitDropdown)).click();
+        actions.pause(Duration.ofSeconds(1))
+                .sendKeys(Keys.ARROW_DOWN)
+                .sendKeys(Keys.ENTER)
+                .perform();
 
+        wait.until(ExpectedConditions.elementToBeClickable(Leave_type_dropdown)).click();
+        actions.pause(Duration.ofSeconds(1))
+                .sendKeys(Keys.ARROW_DOWN)
+                .sendKeys(Keys.ENTER)
+                .perform();
+
+        WebElement entitlementField = wait.until(ExpectedConditions.visibilityOfElementLocated(entitlementInput));
+        entitlementField.clear();
+        entitlementField.sendKeys(entitlementAmount);
+
+        wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(confirmButton)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(Toast));
+    }
 
     public boolean isEntitlementSuccessMessageDisplayed() {
         try {
-            return wait.until(ExpectedConditions.visibilityOf(successToast)).isDisplayed();
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(Toast)).isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }
