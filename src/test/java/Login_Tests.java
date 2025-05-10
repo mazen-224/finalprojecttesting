@@ -11,7 +11,7 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-public class OrangeHRMLoginTests {
+public class Login_Tests {
 
     WebDriver driver;
     WebDriverWait wait;
@@ -22,7 +22,7 @@ public class OrangeHRMLoginTests {
     By loginButton = By.tagName("button");
     By errorMessage = By.cssSelector("div.oxd-alert-content--error p.oxd-alert-content-text");
     By dashboardHeader = By.tagName("h6");
-
+    String URL = "https://opensource-demo.orangehrmlive.com";
     @BeforeClass
     public void setup() {
         driver = new EdgeDriver();
@@ -32,14 +32,12 @@ public class OrangeHRMLoginTests {
 
     @BeforeMethod
     public void navigateToLoginPage() {
-        driver.get("https://opensource-demo.orangehrmlive.com");
+        driver.get(URL);
     }
 
     @AfterClass
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.quit();
     }
 
     @Test
@@ -77,7 +75,7 @@ public class OrangeHRMLoginTests {
         actions.keyDown(Keys.CONTROL).sendKeys("v").keyUp(Keys.CONTROL).perform();
 
         String pastedValue = usernameInput.getAttribute("value");
-        Assert.assertNotEquals(pastedValue, "admin123", "❌ Password was copied into username field. Copy protection failed.");
+        Assert.assertNotEquals(pastedValue, "admin123", "Password was copied into username field. Copy protection failed.");
     }
 
     @Test
@@ -104,7 +102,7 @@ public class OrangeHRMLoginTests {
     public void testPasswordIsMasked() {
         WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField));
         String inputType = passwordInput.getAttribute("type");
-        Assert.assertEquals(inputType.trim().toLowerCase(), "password", "❌ Password is not masked.");
+        Assert.assertEquals(inputType.trim().toLowerCase(), "password", "Password is not masked.");
     }
 
     @Test
@@ -117,7 +115,7 @@ public class OrangeHRMLoginTests {
         Assert.assertEquals(actualErrorMessage, "Invalid credentials", "Case-sensitive password check failed.");
     }
 
-    @Test
+    @Test( priority = 1)
     public void testLoginWithValidCredentials() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField)).sendKeys("Admin");
         driver.findElement(passwordField).sendKeys("admin123");
@@ -126,8 +124,11 @@ public class OrangeHRMLoginTests {
         String actualResult = wait.until(ExpectedConditions.visibilityOfElementLocated(dashboardHeader)).getText();
         Assert.assertEquals(actualResult, "Dashboard", "Login failed or dashboard not loaded.");
 
-        // Logout after successful login
-        driver.findElement(By.className("oxd-userdropdown-tab")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Logout"))).click();
+        // Logout
+//        driver.findElement(By.className("oxd-userdropdown-tab")).click();
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Logout"))).click();
     }
+
+
+
 }
