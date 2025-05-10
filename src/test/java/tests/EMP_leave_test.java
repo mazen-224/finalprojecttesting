@@ -5,7 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.EMP_leave_page;
-import pages.login_page; // Assuming you have a login page object
+import pages.LoginPage;
 
 import java.time.Duration;
 
@@ -20,7 +20,7 @@ public class EMP_leave_test {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://opensource-demo.orangehrmlive.com/");
 
-        login_page loginPage = new login_page(driver);
+        LoginPage loginPage = new LoginPage(driver);
         loginPage.login("eldyaste", "mazen12345");
 
         empLeavePage = new EMP_leave_page(driver);

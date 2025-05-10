@@ -4,8 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import pages.LoginPage;
 import pages.admin_Page;
-import pages.login_page;
 
 import java.time.Duration;
 
@@ -21,7 +21,7 @@ public class admin_test {
         driver.get("https://opensource-demo.orangehrmlive.com/");
 
         // Admin login
-        login_page loginPage = new login_page(driver);
+        LoginPage loginPage = new LoginPage(driver);
         loginPage.login("Admin", "admin123");
 
         adminPage = new admin_Page(driver);
@@ -32,7 +32,7 @@ public class admin_test {
         adminPage.disableUser("Mazen");
 
         driver.get("https://opensource-demo.orangehrmlive.com/");
-        login_page loginPage = new login_page(driver);
+        LoginPage loginPage = new LoginPage(driver);
         loginPage.login("Mazen", "mazen12345");
 
         Assert.assertTrue(driver.getCurrentUrl().contains("auth/login"), "User should not be able to login");
@@ -44,7 +44,7 @@ public class admin_test {
         adminPage.changeUserPasswordFlow("FMLName", "FML12345");
 
         driver.get("https://opensource-demo.orangehrmlive.com/");
-        login_page loginPage = new login_page(driver);
+        LoginPage loginPage = new LoginPage(driver);
         loginPage.login("FMLName", "FML12345");
 
         Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"), "User should be logged in with new password");

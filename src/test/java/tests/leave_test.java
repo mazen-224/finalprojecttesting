@@ -3,8 +3,8 @@ package tests;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import pages.LoginPage;
 import pages.leave_page;
-import pages.login_page;
 import pages.web_class;
 
 public class leave_test {
@@ -14,7 +14,7 @@ public class leave_test {
     public void setup() {
         driver = web_class.createDriver("chrome");
         driver.get("https://opensource-demo.orangehrmlive.com");
-        new login_page(driver).login("Admin", "admin123");
+        new LoginPage(driver).login("Admin", "admin123");
     }
 
     @Test

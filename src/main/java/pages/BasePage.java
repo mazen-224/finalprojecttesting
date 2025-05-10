@@ -9,26 +9,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public abstract class BasePage {
-    protected WebDriver driver;
-    protected WebDriverWait wait;
+    protected static WebDriver driver;
+    protected static WebDriverWait wait;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    protected WebElement find(By locator){
+    protected static WebElement find(By locator){
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return driver.findElement(locator);
     }
 
-    protected void set(By locator, String text){
+    protected static void set(By locator, String text){
         WebElement element = find(locator);
         element.clear();
         element.sendKeys(text);
     }
 
-    protected void click(By locator){
+    protected static void click(By locator){
         find(locator).click();
     }
 

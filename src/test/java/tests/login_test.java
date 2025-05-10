@@ -1,13 +1,8 @@
 package tests;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
-import pages.login_page;
 import pages.web_class;
-
-import org.openqa.selenium.By;
-
+import pages.LoginPage;
 
 
 public class login_test {
@@ -22,8 +17,8 @@ public class login_test {
 
     @Test
     public void testValidLogin() {
-        login_page loginPage = new login_page(driver);
-        login_page.login("Admin", "admin123");
+        LoginPage loginPage = new LoginPage(driver);
+        LoginPage.login("Admin", "admin123");
 
     }
 
@@ -31,7 +26,6 @@ public class login_test {
     public void tearDown() {
         if (driver != null) {
             driver.quit();
-
         }
     }
 }
