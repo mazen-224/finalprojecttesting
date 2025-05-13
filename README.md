@@ -14,7 +14,8 @@ The testing scope includes:
 - *Login*: Verify login functionality with valid and invalid credentials.
 - *Logout*: Test user logout behavior and redirection.
 - *Payroll*: Validate payroll features, calculations, and reporting modules.
-- *Functionality Testing*: Ensure all features work as expected.
+- *Functionality-Testing*: Ensure all features work as expected.
+- *Security-Testing*:Check authentication, authorization, and data protection.
 - *UI & UX*: Evaluate interface responsiveness, accessibility, and user experience.
 - *Frontend Testing*: Validate client-side elements and browser compatibility.
 
