@@ -14,15 +14,14 @@ The testing scope includes:
 - *Login*: Verify login functionality with valid and invalid credentials.
 - *Logout*: Test user logout behavior and redirection.
 - *Payroll*: Validate payroll features, calculations, and reporting modules.
-- *Functionality Testing*: Ensure all features work as expected.
-- *Security Testing*: Check authentication, authorization, and data protection.
+- *Functionality-Testing*: Ensure all features work as expected.
+- *Security-Testing*:Check authentication, authorization, and data protection.
 - *UI & UX*: Evaluate interface responsiveness, accessibility, and user experience.
 - *Frontend Testing*: Validate client-side elements and browser compatibility.
-- *Session Management*: Test timeout, multiple sessions, and session expiration handling.
 
 ## Team Members
-- Zainab Mohamed Alaa Eldien Ahmed  
 - Mazen Nagy Eldayaste  
+- Zainab Mohamed Alaa Eldien Ahmed  
 - Jana Abdullah Adel  
 - Alhassan Abdel Hamed  
 - Soha Mohamed Abd El Wahed  
